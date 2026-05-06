@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe｜浦住拓海 ポートフォリオサイト</title>
+<style>
+  /* ===== Wireframe styling (low-mid fidelity) ===== */
+  :root{
+    --bg:#FAFAFA;
+    --paper:#FFFFFF;
+    --ink:#1a2a3a;
+    --ink-2:#4a5a6c;
+    --ink-3:#8893a3;
+    --line:#dde4ec;
+    --line-2:#b8c4d2;
+    --fill:#eef3f8;
+    --fill-2:#dde6ef;
+    --note:#0A66C2;        /* 注釈用 */
+    --note-bg:#EAF2FB;
+    --accent:#055c9d;      /* Logo blue - primary */
+    --accent-dark:#034173; /* Darker blue - hover */
+    --accent-mid:#3380bf;  /* Mid blue */
+    --accent-soft:#e8f1f9; /* Pale blue - subtle bg */
+    --radius:4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    line-height:1.6;}
+  .doc-header{
+    padding:20px 40px;background:#1f1f1f;color:#fff;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .doc-header h1{font-size:14px;margin:0;letter-spacing:.05em;}
+  .doc-header .meta{font-size:11px;color:#bbb;}
+  .legend{
+    background:#fff;border-bottom:1px solid var(--line);
+    padding:10px 40px;font-size:11px;color:var(--ink-2);
+    display:flex;gap:20px;flex-wrap:wrap;
+  }
+  .legend span::before{
+    content:"";display:inline-block;width:10px;height:10px;
+    margin-right:6px;vertical-align:middle;border:1px solid var(--line-2);
+  }
+  .legend .img::before{background:var(--fill);}
+  .legend .text::before{background:#fff;border-style:dashed;}
+  .legend .note::before{background:var(--note-bg);border-color:var(--note);}
+
+  .page{max-width:1200px;margin:30px auto;background:var(--paper);
+    border:1px solid var(--line);border-radius:var(--radius);}
+  .page-label{
+    background:#1f1f1f;color:#fff;padding:8px 16px;font-size:11px;letter-spacing:.1em;
+  }
+
+  /* ===== Header / Nav ===== */
+  .site-header{
+    display:flex;flex-direction:row;justify-content:space-between;align-items:center;
+    padding:18px 40px;border-bottom:1px solid var(--line);gap:24px;
+    position:sticky;top:0;z-index:100;background:#fff;
+    backdrop-filter:saturate(180%) blur(8px);
+    -webkit-backdrop-filter:saturate(180%) blur(8px);
+  }
+  .logo-box{
+    background:transparent;
+    display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+    color:var(--ink);gap:6px;
+    text-decoration:none;cursor:pointer;
+  }
+  .logo-box img{
+    height:27px;width:auto;display:block;object-fit:contain;
+    align-self:flex-start;
+  }
+  .logo-box .tagline{
+    font-size:10px;color:#055c9d;
+    line-height:1;text-align:justify;text-align-last:justify;
+    -moz-text-align-last:justify;
+  }
+  .gnav{display:flex;gap:30px;font-size:13px;color:var(--ink-2);align-items:center;}
+  .gnav a{color:var(--ink-2);text-decoration:none;letter-spacing:.08em;position:relative;padding:6px 0;}
+  .gnav a:hover{color:var(--ink);}
+  .gnav a.contact-btn{
+    background:var(--accent);color:#fff;padding:10px 22px;letter-spacing:.1em;
+    border:1px solid var(--accent);
+    transition:background .2s,color .2s;
+  }
+  .gnav a.contact-btn:hover{background:var(--accent-dark);color:#fff;border-color:var(--accent-dark);}
+  .gnav a:not(.contact-btn):hover{color:var(--accent);}
+
+  /* ===== Hero (16:9 video background) ===== */
+  .hero{
+    position:relative;width:100%;aspect-ratio:16/9;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;background:#0d0d0d;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-video{
+    position:absolute;inset:0;width:100%;height:100%;
+    overflow:hidden;
+  }
+  .hero-video img,.hero-video video{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 100%);
+  }
+  .hero-content{
+    position:relative;z-index:2;color:#fff;
+    padding:0 40px;max-width:780px;text-align:center;
+  }
+  .hero-content h2{
+    font-size:42px;line-height:1.4;margin:0 0 24px;
+    letter-spacing:.02em;color:#fff;
+  }
+  .hero-content .sub{
+    font-size:14px;color:rgba(255,255,255,.85);
+    margin:0 auto 36px;max-width:600px;line-height:2;
+  }
+  .hero-content .cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .hero-scroll{
+    position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.7);font-size:10px;letter-spacing:.3em;z-index:2;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .hero-scroll::after{
+    content:"";width:1px;height:36px;background:rgba(255,255,255,.6);
+    animation:scrollLine 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollLine{
+    0%,100%{transform:scaleY(.5);transform-origin:top;}
+    50%{transform:scaleY(1);transform-origin:top;}
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:14px 28px;font-size:12px;letter-spacing:.05em;
+    border:1px solid var(--accent);background:#fff;color:var(--accent);
+    text-decoration:none;border-radius:2px;
+    transition:background .2s,color .2s;
+  }
+  .btn:hover{background:var(--accent);color:#fff;}
+  .btn.primary{background:var(--accent);color:#fff;}
+  .btn.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);}
+  .hero-content .btn{
+    border-color:#fff;background:transparent;color:#fff;
+  }
+  .hero-content .btn:hover{background:#fff;color:var(--accent);border-color:#fff;}
+  .hero-content .btn.primary{
+    background:var(--accent);color:#fff;border-color:var(--accent);
+  }
+  .hero-content .btn.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+
+  /* ===== Section common ===== */
+  section.section{padding:80px 40px;border-bottom:1px solid var(--line);}
+  .sec-head{margin-bottom:56px;text-align:center;}
+  .sec-head .en{font-size:12px;letter-spacing:.25em;color:var(--accent);font-weight:500;}
+  .sec-head h3{font-size:28px;margin:10px 0 20px;letter-spacing:.05em;color:var(--ink);position:relative;padding-bottom:18px;}
+  .sec-head h3::after{
+    content:"";display:block;width:32px;height:2px;background:var(--accent);
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  }
+  .sec-head .lead{font-size:13px;color:var(--ink-2);max-width:680px;line-height:2;margin:0 auto;text-align:left;}
+
+  /* ===== WORKS ===== */
+  .works-featured{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:48px;
+  }
+  .work-featured{display:flex;flex-direction:column;}
+  .video-box{
+    aspect-ratio:16/9;background:var(--fill);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-3);font-size:12px;
+    border:1px dashed var(--line-2);position:relative;overflow:hidden;
+    cursor:pointer;
+  }
+  .video-box:has(img){border:0;}
+  .video-box img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .video-box::after{
+    content:"▶";position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    font-size:22px;color:#fff;
+    width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.55);
+    display:flex;align-items:center;justify-content:center;
+    pointer-events:none;
+    transition:background .2s,transform .2s ease;
+  }
+  .video-box:hover::after{
+    background:rgba(0,0,0,.8);
+    transform:translate(-50%,-50%) scale(1.08);
+  }
+  .video-box.playing{cursor:default;}
+  .video-box.playing::after{display:none;}
+  .video-box.playing iframe{
+    width:100%;height:100%;border:0;display:block;
+  }
+  .work-meta{padding:18px 0;text-align:left;}
+  .work-meta h4{font-size:16px;margin:8px 0 8px;}
+  .work-meta .client{font-size:11px;color:var(--ink-3);margin-bottom:0;}
+
+  .filter-bar{
+    display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;font-size:11px;
+  }
+  .filter-bar .chip{
+    border:1px solid var(--line-2);padding:6px 12px;color:var(--ink-2);background:#fff;
+  }
+  .filter-bar .chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+  .works-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:40px 32px;
+  }
+  .work-thumb{display:flex;flex-direction:column;}
+  .work-thumb .video-box{aspect-ratio:16/9;}
+  .work-thumb .video-box::after{width:42px;height:42px;font-size:18px;}
+  .work-thumb .meta{padding:16px 0;text-align:left;}
+  .work-thumb .meta h4{font-size:15px;margin:6px 0 6px;}
+  .work-thumb .meta .c{font-size:11px;color:var(--ink-3);margin:0;}
+
+  /* ===== FLOW (vertical timeline) ===== */
+  .flow-grid{
+    display:flex;flex-direction:column;gap:0;
+    max-width:760px;margin:0 auto;border:0;
+  }
+  .flow-step{
+    display:grid;grid-template-columns:90px 1fr;gap:32px;
+    padding:0 0 56px;position:relative;align-items:flex-start;
+    background:transparent;border:0;
+  }
+  .flow-step:last-child{padding-bottom:0;}
+  .flow-step::before{
+    content:"";position:absolute;left:44px;top:96px;bottom:-8px;
+    width:1px;background:var(--accent);opacity:.3;
+  }
+  .flow-step:last-child::before{display:none;}
+  .flow-step .step-no{
+    width:90px;height:90px;border-radius:50%;
+    background:var(--accent);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:0;padding:0;gap:2px;
+    box-shadow:0 4px 16px rgba(5,92,157,.18);
+  }
+  .flow-step .step-no .lbl{
+    font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.75);
+  }
+  .flow-step .step-no .num{
+    font-size:26px;font-weight:300;letter-spacing:.05em;line-height:1;
+  }
+  .flow-step .step-body{
+    padding-top:18px;max-width:none;width:100%;
+  }
+  .flow-step .step-body h5{
+    font-size:18px;margin:0 0 14px;text-align:left;letter-spacing:.05em;
+  }
+  .flow-step .step-body p{
+    font-size:13px;color:var(--ink-2);margin:0;line-height:2;text-align:left;
+  }
+  .flow-total{
+    margin-top:28px;text-align:center;font-size:12px;color:var(--ink-2);
+    padding:14px;background:var(--fill);
+  }
+
+  /* ===== PROFILE ===== */
+  .profile-grid{
+    display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:stretch;
+    max-width:920px;margin:0 auto;
+  }
+  .profile-photo{
+    width:100%;align-self:stretch;background:var(--fill);
+    overflow:hidden;position:relative;
+    aspect-ratio:3648 / 4542;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-3);font-size:12px;border-radius:0;
+  }
+  .profile-photo img{
+    width:100%;height:100%;object-fit:cover;
+    object-position:center 41.2%;
+    display:block;
+  }
+  .profile-bio{width:100%;text-align:left;align-self:stretch;display:flex;flex-direction:column;justify-content:center;}
+  .profile-name{
+    font-size:26px;margin:0 0 4px;letter-spacing:.08em;line-height:1.4;
+  }
+  .profile-role{
+    font-size:12px;color:var(--ink-3);margin-bottom:36px;letter-spacing:.18em;
+  }
+  .career-timeline{
+    margin:0 0 32px;border-top:1px solid var(--line);
+  }
+  .career-row{
+    display:grid;grid-template-columns:80px 1fr;gap:24px;
+    padding:14px 4px;border-bottom:1px solid var(--line);
+    font-size:13px;align-items:center;
+  }
+  .career-row .year{
+    color:var(--accent);letter-spacing:.08em;font-feature-settings:"tnum";font-weight:500;
+  }
+  .career-row .event{color:var(--ink-2);}
+  .philosophy{margin-top:32px;}
+  .philosophy p{
+    font-size:13px;color:var(--ink-2);line-height:2.1;margin:0 0 18px;
+  }
+  .philosophy p:last-child{margin-bottom:0;}
+
+  /* ===== FAQ (accordion) ===== */
+  .faq-list{max-width:840px;margin:0 auto;border-top:1px solid var(--line);}
+  .faq-item{
+    border-bottom:1px solid var(--line);padding:0;
+  }
+  .faq-item summary{
+    list-style:none;cursor:pointer;
+    padding:24px 48px 24px 8px;
+    font-size:14px;position:relative;
+    display:flex;align-items:center;
+    text-align:left;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::before{
+    content:"Q.";color:var(--accent);margin-right:16px;
+    font-size:13px;letter-spacing:.08em;font-weight:500;
+  }
+  .faq-item summary::after{
+    content:"";position:absolute;right:12px;top:50%;
+    width:14px;height:14px;
+    background:
+      linear-gradient(var(--accent),var(--accent)) center/14px 1px no-repeat,
+      linear-gradient(var(--accent),var(--accent)) center/1px 14px no-repeat;
+    transform:translateY(-50%);
+    transition:transform .25s ease;
+  }
+  .faq-item[open] summary{color:var(--accent);}
+  .faq-item[open] summary::after{
+    background:
+      linear-gradient(var(--accent),var(--accent)) center/14px 1px no-repeat;
+    transform:translateY(-50%) rotate(180deg);
+  }
+  .faq-a{
+    padding:4px 48px 24px 38px;
+    font-size:13px;color:var(--ink-2);
+    line-height:2;text-align:left;
+    background:var(--accent-soft);
+    margin:0 -8px;padding-left:46px;padding-right:56px;border-radius:4px;
+  }
+  .faq-a::before{
+    content:"A.";color:var(--accent);margin-right:14px;
+    font-size:13px;letter-spacing:.08em;font-weight:500;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-grid{
+    display:flex;flex-direction:column;gap:32px;
+    max-width:720px;margin:0 auto;
+  }
+  .form{display:flex;flex-direction:column;gap:18px;}
+  .field label{
+    display:block;font-size:11px;color:var(--ink-2);margin-bottom:6px;
+    letter-spacing:.05em;text-align:left;
+  }
+  .field label .req{color:#c0392b;margin-left:4px;font-size:10px;}
+  .field label .opt{color:var(--ink-3);margin-left:4px;font-size:10px;}
+  .field input,.field select,.field textarea{
+    width:100%;border:1px solid var(--line-2);background:#fff;
+    padding:12px;font-size:13px;font-family:inherit;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:0;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(5,92,157,.12);
+  }
+  .field textarea{min-height:120px;resize:vertical;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .check-row{font-size:12px;color:var(--ink-2);display:flex;gap:8px;align-items:center;justify-content:center;}
+  .submit{align-self:center;margin-top:12px;min-width:200px;}
+  .contact-side{
+    background:var(--fill);padding:32px 28px;font-size:12px;color:var(--ink-2);
+  }
+  .contact-side h6{font-size:11px;letter-spacing:.2em;margin:0 0 10px;color:var(--ink-3);text-align:center;}
+  .contact-side p{margin:0 0 18px;line-height:1.9;text-align:left;}
+  .contact-side .info-block{max-width:360px;margin:0 auto 18px;}
+  .sns{display:flex;gap:8px;margin-top:8px;justify-content:center;}
+  .sns span{
+    width:32px;height:32px;border:1px solid var(--line-2);background:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink-3);
+  }
+
+  /* ===== CTA Banner (bottom hero) ===== */
+  .cta-banner{
+    position:relative;width:100%;
+    aspect-ratio:16/7;min-height:380px;
+    background-image:
+      linear-gradient(180deg,rgba(2,18,33,.55) 0%,rgba(5,92,157,.55) 100%),
+      url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80');
+    background-size:cover;background-position:center;background-color:#021223;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .cta-banner::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,transparent 0%,rgba(2,18,33,.45) 100%);
+  }
+  .cta-banner-content{
+    position:relative;z-index:2;text-align:center;color:#fff;
+    max-width:760px;padding:60px 32px;
+  }
+  .cta-banner-content .kicker{
+    font-size:11px;letter-spacing:.4em;color:rgba(255,255,255,.85);
+    margin-bottom:20px;display:inline-block;padding-bottom:6px;
+    border-bottom:1px solid rgba(255,255,255,.4);
+  }
+  .cta-banner-content h3{
+    font-size:32px;line-height:1.6;letter-spacing:.05em;
+    color:#fff;margin:0 0 24px;font-weight:500;
+  }
+  .cta-banner-content p{
+    font-size:13px;color:rgba(255,255,255,.85);line-height:2;
+    margin:0 auto 36px;max-width:520px;
+  }
+  .cta-banner-content .cta-buttons{
+    display:flex;justify-content:center;gap:14px;flex-wrap:wrap;
+  }
+  .cta-banner-content .btn{
+    background:transparent;color:#fff;border-color:#fff;
+    padding:16px 36px;font-size:13px;letter-spacing:.1em;
+  }
+  .cta-banner-content .btn:hover{
+    background:#fff;color:var(--accent);border-color:#fff;
+  }
+  .cta-banner-content .btn.primary{
+    background:#fff;color:var(--accent);border-color:#fff;
+  }
+  .cta-banner-content .btn.primary:hover{
+    background:var(--accent);color:#fff;border-color:#fff;
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    padding:48px 40px;background:linear-gradient(180deg,#06314f 0%,#021d33 100%);
+    color:rgba(255,255,255,.7);font-size:11px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:18px;text-align:center;border-top:3px solid var(--accent);
+  }
+  footer .accept{color:#fff;font-size:12px;letter-spacing:.05em;}
+  footer .links a{color:rgba(255,255,255,.6);text-decoration:none;margin:0 10px;transition:color .2s;}
+  footer .links a:hover{color:#fff;}
+
+  /* ===== Annotation ===== */
+  .note{
+    background:var(--note-bg);border-left:3px solid var(--note);
+    color:#093f7a;font-size:11px;padding:8px 12px;margin-top:12px;line-height:1.7;
+  }
+  .note strong{color:var(--note);}
+
+  /* ===== SP preview ===== */
+  .sp-frame{
+    width:380px;margin:0 auto;border:1px solid var(--line);background:#fff;
+  }
+  .sp-frame .site-header{
+    flex-direction:row;justify-content:space-between;padding:14px 18px;
+  }
+  .sp-frame .gnav{display:none;}
+  .sp-frame .menu-icon{
+    width:24px;height:18px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .sp-frame .menu-icon span{display:block;height:2px;background:var(--ink);}
+  .sp-frame .hero{padding:0;}
+  .sp-frame .hero-content{padding:0 18px;}
+  .sp-frame .hero-content h2{font-size:18px;line-height:1.5;margin-bottom:14px;}
+  .sp-frame .hero-content .sub{font-size:11px;line-height:1.8;margin-bottom:18px;}
+  .sp-frame .hero-content .cta{flex-direction:row;gap:8px;}
+  .sp-frame .hero-content .cta .btn{padding:10px 18px;font-size:11px;}
+  .sp-frame .hero-video::before{
+    font-size:9px;padding:6px 10px;letter-spacing:.1em;
+    content:"[ 16:9 BG VIDEO ]";
+  }
+  .sp-frame .hero-scroll{display:none;}
+  .sp-frame section.section{padding:40px 20px;}
+  .sp-frame .works-featured{grid-template-columns:1fr;}
+  .sp-frame .works-grid{grid-template-columns:1fr 1fr;}
+  .sp-frame .flow-step{
+    grid-template-columns:64px 1fr;gap:18px;padding:0 0 36px;
+  }
+  .sp-frame .flow-step::before{left:31px;top:70px;}
+  .sp-frame .flow-step .step-no{width:64px;height:64px;}
+  .sp-frame .flow-step .step-no .num{font-size:18px;}
+  .sp-frame .flow-step .step-no .lbl{font-size:8px;}
+  .sp-frame .flow-step .step-body{padding-top:8px;}
+  .sp-frame .flow-step .step-body h5{font-size:15px;margin-bottom:8px;}
+  .sp-frame .profile-grid{grid-template-columns:1fr;gap:24px;max-width:none;}
+  .sp-frame .profile-photo{max-width:240px;margin:0 auto;aspect-ratio:3648/4542;align-self:auto;}
+  .sp-frame .profile-name{font-size:20px;}
+  .sp-frame .profile-role{font-size:11px;margin-bottom:24px;}
+  .sp-frame .career-row{grid-template-columns:64px 1fr;gap:14px;font-size:12px;padding:12px 4px;}
+  .sp-frame .philosophy p{font-size:12px;line-height:2;}
+  .sp-frame .profile-sub{grid-template-columns:1fr;}
+  .sp-frame .contact-grid{grid-template-columns:1fr;}
+  .sp-frame .field-row{grid-template-columns:1fr;}
+  .sp-frame footer{flex-direction:column;gap:14px;text-align:center;padding:24px;}
+
+  @media(max-width:840px){
+    .works-featured,.works-grid,
+    .profile-grid,.contact-grid,.field-row{grid-template-columns:1fr;}
+    .profile-grid{gap:32px;max-width:520px;}
+    .profile-photo{max-width:280px;margin:0 auto;aspect-ratio:3/4;align-self:auto;}
+    .career-row{grid-template-columns:70px 1fr;gap:16px;}
+    .site-header{padding:14px 20px;}
+    .gnav{display:none;}
+    .hero-content{padding:0 24px;}
+    .hero-content h2{font-size:22px;line-height:1.5;margin-bottom:14px;}
+    .hero-content .sub{font-size:11px;line-height:1.8;margin-bottom:18px;}
+    .hero-content .cta{flex-direction:row;gap:10px;justify-content:center;}
+    .hero-content .cta .btn{padding:10px 18px;font-size:11px;}
+    .hero-scroll{display:none;}
+    .hero-video::before{font-size:10px;padding:8px 14px;}
+    .flow-step{grid-template-columns:64px 1fr;gap:18px;padding:0 0 36px;}
+    .flow-step::before{left:31px;top:70px;}
+    .flow-step .step-no{width:64px;height:64px;}
+    .flow-step .step-no .num{font-size:18px;}
+    .flow-step .step-no .lbl{font-size:8px;}
+    .flow-step .step-body{padding-top:8px;}
+    .flow-step .step-body h5{font-size:15px;margin-bottom:8px;}
+    .doc-header{padding:14px 18px;}
+    .legend{padding:10px 18px;}
+  }
+</style>
+</head>
+<body id="top">
+
+<div class="doc-header">
+  <h1>Wireframe｜浦住拓海 ポートフォリオサイト</h1>
+  <div class="meta">v1.0 / 2026-05 / Layout & Content draft</div>
+</div>
+
+<div class="legend">
+  <span class="img">画像・動画プレースホルダー</span>
+  <span class="text">テキストブロック</span>
+  <span class="note">設計上の注釈（実装時は不要）</span>
+</div>
+
+<!-- ============ PC PAGE ============ -->
+<div class="page">
+  <div class="page-label">PC ／ 1200px幅　── 全画面1ページ通し</div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="#top" class="logo-box">
+      <img src="logo.png" alt="浦住拓海">
+      <span class="tagline">広告アニメーション制作</span>
+    </a>
+    <nav class="gnav">
+      <a href="#works">実績</a>
+      <a href="#flow">制作の流れ</a>
+      <a href="#profile">プロフィール</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#contact" class="contact-btn">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <!-- Hero (full-screen video) -->
+  <section class="hero">
+    <div class="hero-video"><img src="ファーストビュー.gif" alt=""></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>映像で、ビジネスの目的を、<br>最短距離で。</h2>
+      <p class="sub">映像はゴールではなく、ビジネス課題を解決する手段。<br>目的から逆算した戦略で、成果につながる映像をご提供します。</p>
+      <div class="cta">
+        <a class="btn primary" href="#works">実績を見る</a>
+        <a class="btn" href="#contact">お問い合わせ</a>
+      </div>
+    </div>
+    <div class="hero-scroll">SCROLL</div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="section" id="works">
+    <div class="sec-head">
+      <div class="en">WORKS</div>
+      <h3>制作実績</h3>
+    </div>
+
+    <!-- Featured -->
+    <div class="works-featured">
+      <div class="work-featured">
+        <div class="video-box" data-youtube-id="caKZRrjMMg0"><img src="travely.jpg" alt="Travely"></div>
+        <div class="work-meta">
+          <h4>【サービス紹介】Travely</h4>
+          <div class="client">担当：構成・デザイン・映像編集　／　制作期間：1カ月</div>
+        </div>
+      </div>
+      <div class="work-featured">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="work-meta">
+          <h4>【サービス紹介】SmartLink</h4>
+          <div class="client">担当：構成・デザイン・映像編集　／　制作期間：1カ月半</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="works-grid">
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【TVCM】みやぎハッピーフェス</h4>
+          <div class="c">担当：映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【採用動画】エクストリンクホールディングス様</h4>
+          <div class="c">担当：映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【イベント告知】SHIMADA.com様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：3週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【サービス紹介】株式会社 住まいあんしん倶楽部様</h4>
+          <div class="c">担当：デザイン・映像編集　／　制作期間：1カ月</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【イベント告知】Honfleek様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：3週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【アプリ紹介】マネーチェッカー</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：3週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【サービス紹介】株式会社スナドケイ様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：1カ月</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【オープニング】株式会社 住まいあんしん倶楽部様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【サービス紹介】自主制作</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：1カ月</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【サイネージ広告】テラノテクノロジー株式会社様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【SNS広告】株式会社スルガオート様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+      <div class="work-thumb">
+        <div class="video-box">YouTube embed ／ 16:9</div>
+        <div class="meta">
+          <h4>【イベントオープニング】株式会社PADDOCK様</h4>
+          <div class="c">担当：構成・デザイン・映像編集　／　制作期間：2週間</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <section class="section" id="flow">
+    <div class="sec-head">
+      <div class="en">FLOW</div>
+      <h3>制作の流れ</h3>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">01</span></div>
+        <div class="step-body">
+          <h5>企画のご提案</h5>
+          <p>成果につながる映像戦略を、ヒアリング内容を踏まえて企画からご提案いたします。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">02</span></div>
+        <div class="step-body">
+          <h5>台本・構成制作</h5>
+          <p>ターゲットの心を動かす言葉選びと構成にこだわり、結果につながるシナリオを丁寧に設計します。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">03</span></div>
+        <div class="step-body">
+          <h5>絵コンテ制作</h5>
+          <p>完成のイメージができる絵コンテを作成し、認識のズレを解消します。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">04</span></div>
+        <div class="step-body">
+          <h5>グラフィック制作</h5>
+          <p>映像編集で実際に動かす前提でデザインを設計します。デザインの方向性を共有し、編集時の修正を最小限にします。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">05</span></div>
+        <div class="step-body">
+          <h5>映像編集</h5>
+          <p>デザイン性に加えて成果につながる表現と編集設計にこだわり、確かな品質で仕上げます。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="step-no"><span class="lbl">STEP</span><span class="num">06</span></div>
+        <div class="step-body">
+          <h5>納品</h5>
+          <p>納品後もサポートを継続し、軽微な修正や追加のご相談にも対応いたします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="section" id="profile">
+    <div class="sec-head">
+      <div class="en">PROFILE</div>
+      <h3>プロフィール</h3>
+    </div>
+
+    <div class="profile-grid">
+      <div class="profile-photo"><img src="KM_A1200.jpg" alt="浦住 拓海"></div>
+      <div class="profile-bio">
+        <h4 class="profile-name">浦住 拓海</h4>
+        <div class="profile-role">Takumi Urazumi</div>
+
+        <div class="career-timeline">
+          <div class="career-row"><span class="year">1997年</span><span class="event">静岡県に生まれる</span></div>
+          <div class="career-row"><span class="year">2016年</span><span class="event">法人営業</span></div>
+          <div class="career-row"><span class="year">2018年</span><span class="event">映像制作を開始</span></div>
+          <div class="career-row"><span class="year">2021年</span><span class="event">映像クリエイターとして独立</span></div>
+        </div>
+
+        <div class="philosophy">
+          <p>素早いレスポンスと丁寧なヒアリング、そして定期的な進捗共有により、認識のズレや修正コストを最小限に抑えます。制作におきましては、デザインやアニメーションの一つひとつに意図を込め、根拠のある映像表現を追求いたします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="sec-head">
+      <div class="en">FAQ</div>
+      <h3>よくある質問</h3>
+      <p class="lead">お問い合わせ前によくいただく質問をまとめました。記載のないご質問もお気軽にお寄せください。</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>制作期間はどのくらいかかりますか？</summary>
+        <div class="faq-a">案件の内容や尺によって異なりますが、2週間〜2ヶ月ほどが目安となります。お急ぎの場合もまずはご相談ください。可能なスケジュールをご提案いたします。</div>
+      </details>
+      <details class="faq-item">
+        <summary>映像制作の発注が初めてですが大丈夫ですか？</summary>
+        <div class="faq-a">もちろん大丈夫です。初めての方にも安心してお任せいただけるよう、ヒアリングから企画・構成までしっかりとサポートいたします。専門的な知識がなくても、目的やイメージをお聞かせいただければ、こちらで形にしていきますのでご安心ください。</div>
+      </details>
+      <details class="faq-item">
+        <summary>修正は何回まで対応してもらえますか？</summary>
+        <div class="faq-a">修正回数に上限は設けておりません。ご納得いただける仕上がりになるまで、丁寧に対応いたします。お気になる点がございましたら、遠慮なくお申し付けください。</div>
+      </details>
+      <details class="faq-item">
+        <summary>映像に使用する素材が手元にありません。お願いできますか？</summary>
+        <div class="faq-a">ご安心ください。写真や動画素材の手配、ストック素材の選定など、必要な素材はこちらで収集・ご用意いたします。素材がない状態からのご相談も歓迎しております。</div>
+      </details>
+      <details class="faq-item">
+        <summary>制作したい内容がまだはっきり決まっていません。</summary>
+        <div class="faq-a">大丈夫です。「何を伝えたいか」「どんな効果を期待するか」といった目的の整理からご一緒に考えますので、企画段階のご相談でもお気軽にどうぞ。お話を伺いながら、最適なご提案をさせていただきます。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="sec-head">
+      <div class="en">CONTACT</div>
+      <h3>お問い合わせ</h3>
+      <p class="lead">映像制作のご相談、お見積もり依頼、協業のお声がけなど、お気軽にご連絡ください。"まだ企画段階で固まっていない"という状態でも歓迎です。目的の整理からご一緒します。</p>
+    </div>
+
+    <div class="contact-grid">
+      <form class="form" action="https://formsubmit.co/mzeefm8888@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="ポートフォリオサイトからのお問い合わせ">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_autoresponse" value="お問い合わせありがとうございます。内容を確認のうえ、2営業日以内にご返信いたします。">
+        <div class="field">
+          <label>お名前<span class="req">必須</span></label>
+          <input name="お名前" placeholder="例：山田 太郎" required>
+        </div>
+        <div class="field">
+          <label>会社名<span class="opt">任意</span></label>
+          <input name="会社名" placeholder="例：株式会社◯◯">
+        </div>
+        <div class="field">
+          <label>メールアドレス<span class="req">必須</span></label>
+          <input type="email" name="email" placeholder="example@company.com" required>
+        </div>
+        <div class="field">
+          <label>お問い合わせ内容<span class="req">必須</span></label>
+          <textarea name="お問い合わせ内容" placeholder="ご相談内容、目的、想定スケジュールなど、お分かりになる範囲でご記入ください。" required></textarea>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="agree" required>
+          <label for="agree" style="margin:0;">個人情報の取り扱いに同意する<span class="req">必須</span></label>
+        </div>
+        <button class="btn primary submit" type="submit">送信する</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-banner-content">
+      <div class="kicker">CONTACT</div>
+      <h3>映像で、ビジネスを動かす。</h3>
+      <p>映像制作のご相談、お見積もり依頼、協業のお声がけなど、お気軽にご連絡ください。"まだ企画段階で固まっていない"という状態でも歓迎です。</p>
+      <div class="cta-buttons">
+        <a href="#works" class="btn primary">実績を見る</a>
+        <a href="#contact" class="btn">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="accept">現在、新規案件のご相談を受け付けています。</div>
+    <div class="links">
+      <a>Privacy Policy</a><a>Sitemap</a><a>© 2026 Takumi Urazumi</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ SP PAGE ============ -->
+<div class="page" style="max-width:480px;">
+  <div class="page-label">SP ／ 380px幅　── レイアウト確認用（一部抜粋）</div>
+  <div class="sp-frame">
+    <header class="site-header">
+      <a href="#top" class="logo-box">
+        <img src="logo.png" alt="浦住拓海" style="height:21px;">
+        <span class="tagline" style="font-size:8px;">広告アニメーション制作</span>
+      </a>
+      <div class="menu-icon"><span></span><span></span><span></span></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-video"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h2>映像で、ビジネスの目的を、最短距離で。</h2>
+        <p class="sub">映像はゴールではなく、ビジネス課題を解決する手段。<br>目的から逆算した戦略で、成果につながる映像をご提供します。</p>
+        <div class="cta">
+          <a class="btn primary" href="#works">実績を見る</a>
+          <a class="btn" href="#contact">お問い合わせ</a>
+        </div>
+      </div>
+      <div class="hero-scroll">SCROLL</div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <div class="en">WORKS</div>
+        <h3>制作実績</h3>
+      </div>
+      <div class="works-featured">
+        <div class="work-featured">
+          <div class="video-box">YouTube embed</div>
+          <div class="work-meta">
+            <h4>【サービス紹介】Travely</h4>
+            <div class="client">担当：構成・デザイン・映像編集　／　制作期間：1カ月</div>
+          </div>
+        </div>
+        <div class="work-featured">
+          <div class="video-box">YouTube embed</div>
+          <div class="work-meta">
+            <h4>【サービス紹介】SmartLink</h4>
+            <div class="client">担当：構成・デザイン・映像編集　／　制作期間：1カ月半</div>
+          </div>
+        </div>
+      </div>
+      <div class="works-grid" style="grid-template-columns:1fr;gap:24px;">
+        <div class="work-thumb">
+          <div class="video-box">YouTube embed</div>
+          <div class="meta"><h4>【TVCM】みやぎハッピーフェス</h4><div class="c">担当：映像編集　／　制作期間：2週間</div></div>
+        </div>
+        <div class="work-thumb">
+          <div class="video-box">YouTube embed</div>
+          <div class="meta"><h4>【採用動画】エクストリンクホールディングス様</h4><div class="c">担当：映像編集　／　制作期間：2週間</div></div>
+        </div>
+        <div class="work-thumb">
+          <div class="video-box">YouTube embed</div>
+          <div class="meta"><h4>【イベント告知】SHIMADA.com様</h4><div class="c">担当：構成・デザイン・映像編集　／　制作期間：3週間</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head"><div class="en">FLOW</div><h3>制作の流れ</h3></div>
+      <div class="flow-grid">
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">01</span></div>
+          <div class="step-body"><h5>企画のご提案</h5><p>成果につながる映像戦略を、ヒアリング内容を踏まえて企画からご提案いたします。</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">02</span></div>
+          <div class="step-body"><h5>台本・構成制作</h5><p>ターゲットの心を動かす言葉選びと構成にこだわり、結果につながるシナリオを丁寧に設計します。</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">03</span></div>
+          <div class="step-body"><h5>絵コンテ制作</h5><p>完成のイメージができる絵コンテを作成し、認識のズレを解消します。</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">04</span></div>
+          <div class="step-body"><h5>グラフィック制作</h5><p>映像編集で実際に動かす前提でデザインを設計します。デザインの方向性を共有し、編集時の修正を最小限にします。</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">05</span></div>
+          <div class="step-body"><h5>映像編集</h5><p>デザイン性に加えて成果につながる表現と編集設計にこだわり、確かな品質で仕上げます。</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-no"><span class="lbl">STEP</span><span class="num">06</span></div>
+          <div class="step-body"><h5>納品</h5><p>納品後もサポートを継続し、軽微な修正や追加のご相談にも対応いたします。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head"><div class="en">PROFILE</div><h3>プロフィール</h3></div>
+      <div class="profile-grid">
+        <div class="profile-photo"><img src="KM_A1200.jpg" alt="浦住 拓海"></div>
+        <div class="profile-bio">
+          <h4 class="profile-name">浦住 拓海</h4>
+          <div class="profile-role">Takumi Urazumi</div>
+          <div class="career-timeline">
+            <div class="career-row"><span class="year">1997年</span><span class="event">静岡県に生まれる</span></div>
+            <div class="career-row"><span class="year">2016年</span><span class="event">法人営業</span></div>
+            <div class="career-row"><span class="year">2018年</span><span class="event">映像制作を開始</span></div>
+            <div class="career-row"><span class="year">2021年</span><span class="event">映像クリエイターとして独立</span></div>
+          </div>
+          <div class="philosophy">
+            <p>素早いレスポンスと丁寧なヒアリング、そして定期的な進捗共有により、認識のズレや修正コストを最小限に抑えます。制作におきましては、デザインやアニメーションの一つひとつに意図を込め、根拠のある映像表現を追求いたします。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head"><div class="en">CONTACT</div><h3>お問い合わせ</h3></div>
+      <form class="form" action="https://formsubmit.co/mzeefm8888@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="ポートフォリオサイトからのお問い合わせ">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_autoresponse" value="お問い合わせありがとうございます。内容を確認のうえ、2営業日以内にご返信いたします。">
+        <div class="field"><label>お名前<span class="req">必須</span></label><input name="お名前" required></div>
+        <div class="field"><label>会社名<span class="opt">任意</span></label><input name="会社名"></div>
+        <div class="field"><label>メールアドレス<span class="req">必須</span></label><input type="email" name="email" required></div>
+        <div class="field"><label>お問い合わせ内容<span class="req">必須</span></label><textarea name="お問い合わせ内容" required></textarea></div>
+        <div class="check-row"><input type="checkbox" id="agree-sp" required><label for="agree-sp" style="margin:0;">個人情報の取り扱いに同意する<span class="req">必須</span></label></div>
+        <button class="btn primary submit" type="submit">送信する</button>
+      </form>
+    </section>
+
+    <section class="cta-banner" style="aspect-ratio:auto;min-height:320px;">
+      <div class="cta-banner-content" style="padding:40px 20px;">
+        <div class="kicker" style="font-size:9px;letter-spacing:.3em;">CONTACT</div>
+        <h3 style="font-size:20px;line-height:1.6;">映像で、ビジネスを動かす。</h3>
+        <p style="font-size:11px;line-height:1.9;">映像制作のご相談、お見積もり依頼、協業のお声がけなど、お気軽にご連絡ください。</p>
+        <div class="cta-buttons" style="flex-direction:column;gap:10px;">
+          <a href="#works" class="btn primary" style="padding:12px 28px;font-size:11px;">実績を見る</a>
+          <a href="#contact" class="btn" style="padding:12px 28px;font-size:11px;">お問い合わせ</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="accept">現在、新規案件のご相談を受け付けています。</div>
+      <div class="links" style="margin-left:0;"><a>Privacy</a><a>© 2026</a></div>
+    </footer>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:11px;color:var(--ink-3);padding:30px 20px 60px;">
+  Wireframe document — 浦住拓海 ポートフォリオサイト ／ Layout & Content Draft v1.0
+</div>
+
+<script>
+  document.querySelectorAll('.video-box[data-youtube-id]').forEach(function(box){
+    box.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if (box.classList.contains('playing')) return;
+      var id = box.dataset.youtubeId;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + id +
+                   '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+      iframe.setAttribute('allow',
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen','');
+      iframe.setAttribute('frameborder','0');
+      iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;position:absolute;top:0;left:0;';
+      box.innerHTML = '';
+      box.appendChild(iframe);
+      box.classList.add('playing');
+    });
+  });
+</script>
+
+</body>
+</html>
